@@ -17,7 +17,6 @@ URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	php4-devel >= 4.1
-Requires:	apache >= 1.3
 Requires:	php4 = %{php_ver}
 Requires:	php4-zlib
 Requires(post,preun):	php4-common >= 4.1

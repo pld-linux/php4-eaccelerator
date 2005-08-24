@@ -1,12 +1,12 @@
 %define		_name		eaccelerator
 %define		_pkgname	eaccelerator
-%define		php_ver		%(rpm -q --qf '%%{epoch}:%%{version}' php4-devel)
+%define		_sysconfdir	/etc/php4
 
 Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.3
-Release:	1
+Release:	1.1
 Epoch:		0
 License:	GPL
 Vendor:		Turck Software
@@ -16,15 +16,14 @@ Source0:	http://dl.sourceforge.net/eaccelerator/%{_pkgname}-%{version}.tar.gz
 URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	automake
 BuildRequires:	libtool
-BuildRequires:	php4-devel >= 4.1
-Requires:	php4 = %{php_ver}
+BuildRequires:	php4-devel >= 3:4.1
+%requires_eq_to php4 php4-devel
 Requires:	php4-zlib
-Requires(post,preun):	php4-common >= 4.1
+Requires:	%{_sysconfdir}/conf.d
 Conflicts:	php-mmcache
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_sysconfdir	/etc/php4
-%define		extensionsdir	%{_libdir}/php4
+%define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 
 %description
 eAccelerator is a further development from mmcache PHP Accelerator &
@@ -51,25 +50,30 @@ phpize
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{extensionsdir}
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{extensionsdir},%{_bindir},%{_sysconfdir}/conf.d}
 
 install ./modules/eaccelerator.so $RPM_BUILD_ROOT%{extensionsdir}
 install ./encoder.php $RPM_BUILD_ROOT%{_bindir}
+
+cat <<'EOF' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_name}.ini
+; Enable %{_name} extension module
+extension=%{_name}.so
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{_sbindir}/php4-module-install install eaccelerator %{_sysconfdir}/php.ini
+[ ! -f /etc/apache/conf.d/??_mod_php4.conf ] || %service -q apache restart
+[ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
 
-%preun
-if [ "$1" = "0" ]; then
-	%{_sbindir}/php4-module-install remove eaccelerator %{_sysconfdir}/php.ini
-fi
+%postun
+[ ! -f /etc/apache/conf.d/??_mod_php4.conf ] || %service -q apache restart
+[ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
 
 %files
 %defattr(644,root,root,755)
 %doc README
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_name}.ini
 %attr(755,root,root) %{extensionsdir}/eaccelerator.so
 %attr(755,root,root) %{_bindir}/encoder.php

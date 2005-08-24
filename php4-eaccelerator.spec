@@ -6,13 +6,14 @@ Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.3
-Release:	1.1
+Release:	1.5
 Epoch:		0
 License:	GPL
 Vendor:		Turck Software
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/eaccelerator/%{_pkgname}-%{version}.tar.gz
 # Source0-md5:	b17ddf953f18ee6df5c2c24ffccb37d9
+Source1:	%{name}.ini
 URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -50,15 +51,13 @@ phpize
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{extensionsdir},%{_bindir},%{_sysconfdir}/conf.d}
+install -d $RPM_BUILD_ROOT{%{extensionsdir},%{_bindir},%{_sysconfdir}/conf.d,/var/cache/%{_name}}
 
 install ./modules/eaccelerator.so $RPM_BUILD_ROOT%{extensionsdir}
 install ./encoder.php $RPM_BUILD_ROOT%{_bindir}
-
-cat <<'EOF' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_name}.ini
-; Enable %{_name} extension module
-extension=%{_name}.so
-EOF
+install ./eaccelerator_password.php $RPM_BUILD_ROOT%{_bindir}
+install ./eaccelerator.php $RPM_BUILD_ROOT%{_bindir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_name}.ini
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,12 +67,21 @@ rm -rf $RPM_BUILD_ROOT
 [ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
 
 %postun
-[ ! -f /etc/apache/conf.d/??_mod_php4.conf ] || %service -q apache restart
-[ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
+if [ "$1" = 0 ]; then
+	[ ! -f /etc/apache/conf.d/??_mod_php4.conf ] || %service -q apache restart
+	[ ! -f /etc/httpd/httpd.conf/??_mod_php4.conf ] || %service -q httpd restart
+fi
+
+%preun
+if [ "$1" = 0 ]; then
+	# remove last pieces of cache
+	rm -f /var/cache/%{_name}/*
+fi
 
 %files
 %defattr(644,root,root,755)
 %doc README
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_name}.ini
 %attr(755,root,root) %{extensionsdir}/eaccelerator.so
-%attr(755,root,root) %{_bindir}/encoder.php
+%attr(755,root,root) %{_bindir}/*
+%attr(770,root,http) /var/cache/%{_name}

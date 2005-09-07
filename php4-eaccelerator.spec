@@ -41,7 +41,6 @@ jest prawie ca³kowicie wyeliminowany.
 
 %build
 phpize
-%{__aclocal}
 %configure \
 	--enable-eaccelerator=shared \
 	--with-php-config=%{_bindir}/php-config

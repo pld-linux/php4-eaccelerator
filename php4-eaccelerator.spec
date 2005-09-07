@@ -15,8 +15,6 @@ Source0:	http://dl.sourceforge.net/eaccelerator/%{_pkgname}-%{version}.tar.gz
 # Source0-md5:	b17ddf953f18ee6df5c2c24ffccb37d9
 Source1:	%{name}.ini
 URL:		http://eaccelerator.sourceforge.net/
-BuildRequires:	automake
-BuildRequires:	libtool
 BuildRequires:	php4-devel >= 3:4.1
 %requires_eq_to php4 php4-devel
 Requires:	php4-zlib

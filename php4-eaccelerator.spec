@@ -36,10 +36,10 @@ postaci skompilowanej, dziêki czemu narzut potrzebny na kompilacjê
 jest prawie ca³kowicie wyeliminowany.
 
 %package webinterface
-Summary:    WEB interface for PHP Accelerator
-Summary(pl):    Interfejs WEB dla PHP Accelerator
-Group:      Libraries
-Requires:   %{name} = %{epoch}:%{version}-%{release}
+Summary:	WEB interface for PHP Accelerator
+Summary(pl):	Interfejs WEB dla PHP Accelerator
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description webinterface
 PHP Accelerator can be managed through web interface script mmcache.php.

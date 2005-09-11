@@ -1,12 +1,13 @@
 %define		_name		eaccelerator
 %define		_pkgname	eaccelerator
 %define		_sysconfdir	/etc/php4
+%define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 
 Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.3
-Release:	1.8
+Release:	1.9
 Epoch:		0
 License:	GPL
 Vendor:		Turck Software
@@ -21,8 +22,6 @@ Requires:	php4-zlib
 Requires:	%{_sysconfdir}/conf.d
 Conflicts:	php-mmcache
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 
 %description
 eAccelerator is a further development from mmcache PHP Accelerator &
@@ -103,7 +102,7 @@ fi
 %doc README
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_name}.ini
 %attr(755,root,root) %{extensionsdir}/eaccelerator.so
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/encoder.php
 %attr(770,root,http) /var/cache/%{_name}
 
 %files webinterface

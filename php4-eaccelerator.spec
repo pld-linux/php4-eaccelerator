@@ -6,7 +6,7 @@ Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.3
-Release:	1.6
+Release:	1.8
 Epoch:		0
 License:	GPL
 Vendor:		Turck Software
@@ -108,6 +108,5 @@ fi
 
 %files webinterface
 %defattr(644,root,root,755)
-# FIXME: czy tak rzeczywi¶cie powinno/mo¿e byæ??
-# WTF that says --^^^^^^^^^^^^^^^^
-%doc eaccelerator{,_password}.php
+%attr(755,root,root) %{_bindir}/eaccelerator.php
+%attr(755,root,root) %{_bindir}/eaccelerator_password.php

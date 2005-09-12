@@ -42,10 +42,10 @@ Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description webinterface
-PHP Accelerator can be managed through web interface script mmcache.php.
-So you need to put this file on your web site. For security reasons it
-is recommended to restrict the usage of this script by your local IP and
-setup password based access.
+PHP Accelerator can be managed through web interface script
+mmcache.php. So you need to put this file on your web site. For
+security reasons it is recommended to restrict the usage of this
+script by your local IP and setup password based access.
 
 More information you can find at %{url}.
 
@@ -100,7 +100,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_name}.ini
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/%{_name}.ini
 %attr(755,root,root) %{extensionsdir}/eaccelerator.so
 %attr(755,root,root) %{_bindir}/encoder.php
 %attr(770,root,http) /var/cache/%{_name}

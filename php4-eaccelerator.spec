@@ -17,7 +17,8 @@ Source0:	http://dl.sourceforge.net/eaccelerator/%{_pkgname}-%{version}.tar.gz
 Source1:	%{name}.ini
 URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	php4-devel >= 3:4.1
-%requires_eq_to php4 php4-devel
+BuildRequires:	rpmbuild(macros) >= 1.238
+%requires_php_extension
 Requires:	%{_sysconfdir}/conf.d
 Requires:	php4-zlib
 Conflicts:	php-mmcache

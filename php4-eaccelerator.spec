@@ -2,12 +2,11 @@
 %define		_pkgname	eaccelerator
 %define		_sysconfdir	/etc/php4
 %define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
-
 Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.3
-Release:	3
+Release:	4
 License:	GPL
 Vendor:		Turck Software
 Group:		Libraries
@@ -16,7 +15,7 @@ Source0:	http://dl.sourceforge.net/eaccelerator/%{_pkgname}-%{version}.tar.gz
 Source1:	%{name}.ini
 URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	php4-devel >= 3:4.1
-BuildRequires:	rpmbuild(macros) >= 1.248
+BuildRequires:	rpmbuild(macros) >= 1.254
 %{?requires_php_extension}
 Requires:	%{_sysconfdir}/conf.d
 Requires:	php4-zlib

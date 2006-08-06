@@ -15,6 +15,7 @@ Source1:	%{name}.ini
 URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	php4-devel >= 3:4.1
 BuildRequires:	rpmbuild(macros) >= 1.254
+%requires_eq	php4-common
 %{?requires_php_extension}
 Requires:	%{_sysconfdir}/conf.d
 Requires:	php4-zlib

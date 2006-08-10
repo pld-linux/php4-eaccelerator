@@ -64,7 +64,7 @@ Wiêcej informacji mo¿na znale¼æ pod %{url}.
 phpize
 %configure \
 	--enable-eaccelerator=shared \
-        --with-eaccelerator-userid=http \
+	--with-eaccelerator-userid=http \
 	--with-php-config=%{_bindir}/php-config
 %{__make}
 

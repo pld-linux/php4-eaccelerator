@@ -4,13 +4,13 @@
 Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
-Version:	0.9.4
-Release:	3
+Version:	0.9.5
+Release:	1
 License:	GPL
 Vendor:		Turck Software
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/eaccelerator/%{_name}-%{version}.tar.bz2
-# Source0-md5:	e9143a592b2b8e2e0f9aed2d00df03ce
+# Source0-md5:	dad54af67488b83a2af6e30f661f613b
 Source1:	%{name}.ini
 URL:		http://eaccelerator.sourceforge.net/
 BuildRequires:	php4-devel >= 3:4.1
@@ -64,8 +64,11 @@ Wiêcej informacji mo¿na znale¼æ pod %{url}.
 phpize
 %configure \
 	--enable-eaccelerator=shared \
-	--with-eaccelerator-userid=http \
-	--with-php-config=%{_bindir}/php-config
+        --with-eaccelerator-shared-memory \
+        --with-eaccelerator-sessions \
+        --with-eaccelerator-content-caching \
+        --with-eaccelerator-userid=http \
+        --with-php-config=%{_bindir}/php-config
 %{__make}
 
 %install
@@ -74,9 +77,10 @@ install -d $RPM_BUILD_ROOT{%{extensionsdir},%{_bindir},%{_sysconfdir}/conf.d,/va
 
 install ./modules/eaccelerator.so $RPM_BUILD_ROOT%{extensionsdir}
 install ./encoder.php $RPM_BUILD_ROOT%{_bindir}
-install ./eaccelerator_password.php $RPM_BUILD_ROOT%{_bindir}
-install ./eaccelerator.php $RPM_BUILD_ROOT%{_bindir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_name}.ini
+
+install -d $RPM_BUILD_ROOT/home/services/httpd/html/eaccelerator
+cp -a doc/php/* $RPM_BUILD_ROOT/home/services/httpd/html/eaccelerator
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -107,5 +111,4 @@ fi
 
 %files webinterface
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/eaccelerator.php
-%attr(755,root,root) %{_bindir}/eaccelerator_password.php
+/home/services/httpd/html/eaccelerator

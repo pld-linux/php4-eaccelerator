@@ -5,7 +5,7 @@ Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/eaccelerator/%{_name}-%{version}.tar.bz2
@@ -17,7 +17,7 @@ BuildRequires:	rpmbuild(macros) >= 1.322
 %requires_eq	php4-common
 %{?requires_php_extension}
 Requires:	%{_sysconfdir}/conf.d
-Requires:	php4-zlib
+Requires:	php(zlib)
 Conflicts:	php-mmcache
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

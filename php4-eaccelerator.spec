@@ -7,7 +7,6 @@ Name:		php4-%{_name}
 Version:	0.9.5
 Release:	2
 License:	GPL
-Vendor:		Turck Software
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/eaccelerator/%{_name}-%{version}.tar.bz2
 # Source0-md5:	dad54af67488b83a2af6e30f661f613b
@@ -64,11 +63,11 @@ Wiêcej informacji mo¿na znale¼æ pod %{url}.
 phpize
 %configure \
 	--enable-eaccelerator=shared \
-        --with-eaccelerator-shared-memory \
-        --with-eaccelerator-sessions \
-        --with-eaccelerator-content-caching \
-        --with-eaccelerator-userid=http \
-        --with-php-config=%{_bindir}/php-config
+		--with-eaccelerator-shared-memory \
+		--with-eaccelerator-sessions \
+		--with-eaccelerator-content-caching \
+		--with-eaccelerator-userid=http \
+		--with-php-config=%{_bindir}/php-config
 %{__make}
 
 %install

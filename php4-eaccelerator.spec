@@ -5,7 +5,7 @@ Summary:	eAccelerator module for PHP
 Summary(pl):	Modu³ eAccelerator dla PHP
 Name:		php4-%{_name}
 Version:	0.9.5
-Release:	3
+Release:	4
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/eaccelerator/%{_name}-%{version}.tar.bz2
